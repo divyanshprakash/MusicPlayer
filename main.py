@@ -42,7 +42,7 @@ if not os.path.isdir("./downloads"):
     os.makedirs("./downloads")
 async def main():
     async with bot:
-        await mp.start_radio()
+        
 def stop_and_restart():
     bot.stop()
     os.system("git pull")
