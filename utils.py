@@ -273,7 +273,8 @@ class MusicPlayer(object):
         else:       
             pl = playlist[0]
             title = pl[1]
-        edit = EditGroupCallTitle(call=call, title=title)
+        
+        edit = EditGroupCallTitle(title=title)
         try:
             await self.group_call.client.send(edit)
         except Exception as e:
