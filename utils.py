@@ -97,7 +97,6 @@ class MusicPlayer(object):
             
             
         
-        download_dir = os.path.join(client.workdir, DEFAULT_DOWNLOAD_DIR)
         group_call.input_filename = os.path.join(
             download_dir,
             f"{playlist[1][1]}.raw"
