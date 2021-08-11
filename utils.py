@@ -274,12 +274,8 @@ class MusicPlayer(object):
             pl = playlist[0]
             title = pl[1]
         
-        edit = EditGroupCallTitle(title=title)
-        try:
-            await self.group_call.client.send(edit)
-        except Exception as e:
-            print(e)
-            pass
+       
+
     
 
     async def delete(self, message):
