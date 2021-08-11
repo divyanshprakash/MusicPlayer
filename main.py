@@ -123,7 +123,7 @@ bot.send(
                 description="Stops Playing"
             ),
             types.BotCommand(
-                command="radio",
+                command="radio1",
                 description="Start radio / Live stream"
             ),
             types.BotCommand(
