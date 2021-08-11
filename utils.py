@@ -96,7 +96,7 @@ class MusicPlayer(object):
         if len(playlist) == 1:
             
             
-        client = group_call.client
+        
         download_dir = os.path.join(client.workdir, DEFAULT_DOWNLOAD_DIR)
         group_call.input_filename = os.path.join(
             download_dir,
