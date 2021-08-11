@@ -35,7 +35,7 @@ FFMPEG_PROCESSES = {}
 ADMIN_LIST={}
 CALL_STATUS={}
 EDIT_TITLE=Config.EDIT_TITLE
-RADIO={6}
+
 LOG_GROUP=Config.LOG_GROUP
 DURATION_LIMIT=Config.DURATION_LIMIT
 DELAY=Config.DELAY
@@ -50,9 +50,7 @@ ydl_opts = {
 }
 ydl = YoutubeDL(ydl_opts)
 
-RADIO_TITLE=os.environ.get("RADIO_TITLE", " 🎸 Music 24/7 | Radio Mode")
-if RADIO_TITLE=="NO":
-    RADIO_TITLE = None
+
 
 class MusicPlayer(object):
     def __init__(self):
