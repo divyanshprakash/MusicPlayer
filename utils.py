@@ -1,24 +1,3 @@
-#MIT License
-
-#Copyright (c) 2021 SUBIN
-
-#Permission is hereby granted, free of charge, to any person obtaining a copy
-#of this software and associated documentation files (the "Software"), to deal
-#in the Software without restriction, including without limitation the rights
-#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#copies of the Software, and to permit persons to whom the Software is
-#furnished to do so, subject to the following conditions:
-
-#The above copyright notice and this permission notice shall be included in all
-#copies or substantial portions of the Software.
-
-#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#SOFTWARE.
 import os
 from config import Config
 import ffmpeg
@@ -56,7 +35,7 @@ FFMPEG_PROCESSES = {}
 ADMIN_LIST={}
 CALL_STATUS={}
 EDIT_TITLE=Config.EDIT_TITLE
-
+RADIO={6}
 LOG_GROUP=Config.LOG_GROUP
 DURATION_LIMIT=Config.DURATION_LIMIT
 DELAY=Config.DELAY
@@ -71,7 +50,9 @@ ydl_opts = {
 }
 ydl = YoutubeDL(ydl_opts)
 
-
+RADIO_TITLE=os.environ.get("RADIO_TITLE", " 🎸 Music 24/7 | Radio Mode")
+if RADIO_TITLE=="NO":
+    RADIO_TITLE = None
 
 class MusicPlayer(object):
     def __init__(self):
@@ -94,9 +75,10 @@ class MusicPlayer(object):
         if not playlist:
             return
         if len(playlist) == 1:
-            
-            
-        
+            await mp.start_radio()
+            return
+        client = group_call.client
+        download_dir = os.path.join(client.workdir, DEFAULT_DOWNLOAD_DIR)
         group_call.input_filename = os.path.join(
             download_dir,
             f"{playlist[1][1]}.raw"
@@ -270,9 +252,13 @@ class MusicPlayer(object):
         else:       
             pl = playlist[0]
             title = pl[1]
-        
-       
-
+        call = InputGroupCall(id=self.group_call.group_call.id, access_hash=self.group_call.group_call.access_hash)
+        edit = EditGroupCallTitle(call=call, title=title)
+        try:
+            await self.group_call.client.send(edit)
+        except Exception as e:
+            print(e)
+            pass
     
 
     async def delete(self, message):
@@ -313,6 +299,6 @@ async def on_network_changed(call, is_connected):
 @mp.group_call.on_playout_ended
 async def playout_ended_handler(_, __):
     if not playlist:
-        
-    
+        await mp.start_radio()
+    else:
         await mp.skip_current_playing()
