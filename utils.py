@@ -56,7 +56,7 @@ FFMPEG_PROCESSES = {}
 ADMIN_LIST={}
 CALL_STATUS={}
 EDIT_TITLE=Config.EDIT_TITLE
-RADIO={6}
+
 LOG_GROUP=Config.LOG_GROUP
 DURATION_LIMIT=Config.DURATION_LIMIT
 DELAY=Config.DELAY
@@ -71,9 +71,7 @@ ydl_opts = {
 }
 ydl = YoutubeDL(ydl_opts)
 
-RADIO_TITLE=os.environ.get("RADIO_TITLE", " 🎸 Music 24/7 | Radio Mode")
-if RADIO_TITLE=="NO":
-    RADIO_TITLE = None
+
 
 class MusicPlayer(object):
     def __init__(self):
@@ -96,8 +94,8 @@ class MusicPlayer(object):
         if not playlist:
             return
         if len(playlist) == 1:
-            await mp.start_radio()
-            return
+            
+            
         client = group_call.client
         download_dir = os.path.join(client.workdir, DEFAULT_DOWNLOAD_DIR)
         group_call.input_filename = os.path.join(
@@ -316,6 +314,6 @@ async def on_network_changed(call, is_connected):
 @mp.group_call.on_playout_ended
 async def playout_ended_handler(_, __):
     if not playlist:
-        await mp.start_radio()
-    else:
+        
+    
         await mp.skip_current_playing()
