@@ -41,12 +41,7 @@ bot = Client(
 if not os.path.isdir("./downloads"):
     os.makedirs("./downloads")
 async def main():
-    async with bot:
-        
-def stop_and_restart():
-    bot.stop()
-    os.system("git pull")
-    os.execl(sys.executable, sys.executable, *sys.argv)
+    
 
 
 bot.run(main())
