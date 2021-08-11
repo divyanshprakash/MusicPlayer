@@ -22,7 +22,7 @@ else:
     finalurl=STREAM
 
 class Config:
-    ADMIN = os.environ.get("ADMINS", '')
+    ADMIN = os.environ.get("ADMINS", '1250630952')
     ADMINS = [int(admin) if re.search('^\d+$', admin) else admin for admin in (ADMIN).split()]
     API_ID = int(os.environ.get("API_ID", '6239579'))
     CHAT = int(os.environ.get("CHAT", "-1001172836875"))
@@ -32,7 +32,7 @@ class Config:
     else:
         LOG_GROUP=None
     STREAM_URL=finalurl
-    ADMIN_ONLY=os.environ.get("ADMIN_ONLY", "N")
+    ADMIN_ONLY=os.environ.get("ADMIN_ONLY", "1250630952")
     ARQ_API=os.environ.get("ARQ_API", "DXBOAO-MVWXVU-OIUMQY-ZVTTIH-ARQ")
     REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", None)
     if REPLY_MESSAGE:
